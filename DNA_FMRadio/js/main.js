@@ -524,19 +524,18 @@ function addSignalListeners() {
  * @static
  */
 var init = function () {
-
-    $(".bar").each(function(i) {
-        fluctuate($(this));
-    });
+$(document).on("click", ".switch-plate", function() {
+  $(this).closest(".switch").toggleClass("on off");
+});
+   
 
     // Keypad-container is dynamically positionned over preset-container
     var preset = document.getElementById("presets-container");
     var keypad = document.getElementById("keypad-container");
     if (preset.getBoundingClientRect) {
         var r = preset.getBoundingClientRect();
-        keypad.style.top = (r.top - 100) + "px";
-        keypad.style.left = (((r.left + r.width)/2) -
-                              (keypad.clientWidth/2)) + "px";
+        keypad.style.top = 1280 + "px";
+        keypad.style.left = 280 + "px";
     } else {
         console.error("Browser does not support getBoundingClientRect !");
     }
@@ -576,8 +575,8 @@ var init = function () {
     onDepenancy("homeScreenIconClick", function(){
 			$("#homeScreenIcon").on('OnAppClose', onSmartCancelBtnClick);
 		});
-    $("#EnableBtn").on('click', onEnableBtnClick);
-    $("#DisableBtn").on('click', onDisableBtnClick);
+  //  $("#EnableBtn").on('click', onEnableBtnClick);
+   // $("#DisableBtn").on('click', onDisableBtnClick);
 
     if (fmradio) {
         // We start by registering our various signal listeners
@@ -1239,4 +1238,8 @@ function onDisableBtnClick(e) {
         }
     }
 }
-
+//kj implementation of marco's toggle with Collabora's function....eieio
+$(".switch-plate").click(function() {
+  var el = this;
+  return (el.t = !el.t) ? onDisableBtnClick(el) : onEnableBtnClick(el);
+});
